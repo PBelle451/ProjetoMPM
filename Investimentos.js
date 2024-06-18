@@ -1,41 +1,31 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Adicionar event listener ao botão "Adicionar"
-    var addButton = document.querySelector('.btn-block');
-    addButton.addEventListener('click', adicionarInvestimento);
-  
-    function adicionarInvestimento() {
-      // Obter valores dos campos de entrada
-      var investimento = document.getElementById('numberinvestimentoPreOperacional').value;
-      var valorInvestimento = document.getElementById('numbervalorInvestimento').value;
-  
-      // Validar se os campos foram preenchidos
-      if (!investimento || !valorInvestimento) {
-        alert('Por favor, preencha todos os campos.');
-        return;
-      }
-  
-      // Criar nova linha na tabela
-      var tableBody = document.querySelector('.table-borderless tbody');
-      var newRow = tableBody.insertRow();
-  
-      // Adicionar células à nova linha
-      var cell1 = newRow.insertCell(0);
-      var cell2 = newRow.insertCell(1);
-      var cell3 = newRow.insertCell(2);
-      var cell4 = newRow.insertCell(3);
-      var cell5 = newRow.insertCell(4);
-  
-      // Preencher células com os valores dos campos de entrada
-      cell1.innerHTML = 'Novo Investimento'; // Personalize conforme necessário
-      cell2.innerHTML = '000'; // Personalize conforme necessário
-      cell3.innerHTML = 'R$: ' + investimento;
-      cell4.innerHTML = 'R$: ' + valorInvestimento;
-      cell5.innerHTML = '<img src="asserts/img/Caneta.svg" alt="editar"> <img src="asserts/img/Lixeira.svg" alt="Lixeira">';
-  
-      // Limpar campos após a adição
+document.addEventListener('DOMContentLoaded', (event) => {
+  const btnAdicionar = document.querySelector('.btn.btn-secondary.btn-lg.btn-block');
+  const tabela = document.querySelector('.table tbody');
+
+  btnAdicionar.addEventListener('click', () => {
+    const investimentoPreOperacional = document.getElementById('numberinvestimentoPreOperacional').value;
+    const valorInvestimento = document.getElementById('numbervalorInvestimento').value;
+
+    if (investimentoPreOperacional && valorInvestimento) {
+      const newRow = tabela.insertRow();
+
+      const cellDescricao = newRow.insertCell(0);
+      const cellQuantidade = newRow.insertCell(1);
+      const cellValor = newRow.insertCell(2);
+      const cellTotal = newRow.insertCell(3);
+      const cellAcoes = newRow.insertCell(4);
+
+      cellDescricao.textContent = 'Aporte pre-operacional'; // Ajustar conforme necessário
+      cellQuantidade.textContent = investimentoPreOperacional;
+      cellValor.textContent = `R$: ${valorInvestimento}`;
+      cellTotal.textContent = `R$: ${valorInvestimento}`; // Ajustar cálculo total conforme necessário
+      cellAcoes.innerHTML = '<img src="asserts/img/Caneta.svg" alt="editar"> <img src="asserts/img/Lixeira.svg" alt="Lixeira">';
+
+      // Limpar os campos de entrada
       document.getElementById('numberinvestimentoPreOperacional').value = '';
       document.getElementById('numbervalorInvestimento').value = '';
-      
+    } else {
+      alert('Por favor, preencha todos os campos antes de adicionar.');
     }
   });
-  
+});
